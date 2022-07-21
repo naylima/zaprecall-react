@@ -1,17 +1,25 @@
 import React from "react";
 
-function Flashcard (props) {
+import Button from "./Buttons";
+
+const buttons = [
+    {status: "wrong", icon: "close-circle", text: "Não lembrei"},
+    {status: "almost", icon: "help-circle", text: "Quase não lembrei"},
+    {status: "right", icon: "checkmark-circle", text: "Zap!"}
+]
+
+function Flashcard ({i, question, answer, event}) {
 
     const [flashcard, setFlashcard] = React.useState(true);
     const [isFlipped, setFlipped] = React.useState(true);
     const [status, setStatus] = React.useState("flashcard");
-    const [iconName, setIconName] = React.useState("play-outline");    
+    const [iconName, setIconName] = React.useState("play-outline"); 
 
     return (
         <>
             {flashcard ? (
                 <div className={status}>
-                    <p>Pergunta {props.i}</p>
+                    <p>Pergunta {i}</p>
                     <ion-icon name={iconName} onClick={() => {
                         setFlashcard(!flashcard)}}>
                     </ion-icon>
@@ -20,38 +28,26 @@ function Flashcard (props) {
                 <>  
                     {isFlipped ? (
                         <div className="flashcard-question">
-                            <p>{props.question}</p>
+                            <p>{question}</p>
                             <img src="./assets/setinha.png" alt="" onClick={() => {
                                 setFlipped(!isFlipped)}} />
                         </div>
                         ) : (
                         <div className="flashcard-answer">
-                            <p>{props.answer}</p>
+                            <p>{answer}</p>
                             <div>
-                                <button onClick={() => {
-                                        setFlashcard(true)
-                                        setStatus ("wrong")
-                                        setIconName("close-circle")
-                                        props.event("close-circle")
-                                        }}>
-                                            Não lembrei
-                                </button>
-                                <button onClick={() => {
-                                        setFlashcard(true)
-                                        setStatus ("almost")
-                                        setIconName("help-circle")
-                                        props.event("help-circle")
-                                        }}>
-                                            Quase não lembrei
-                                </button>
-                                <button onClick={() => {
-                                        setFlashcard(true)
-                                        setStatus ("right")
-                                        setIconName("checkmark-circle")
-                                        props.event("checkmark-circle")
-                                        }}>
-                                            Zap!
-                                </button>
+                                {buttons.map ((button, index) => (
+                                    <Button 
+                                        key = {index}
+                                        status = {button.status}
+                                        icon = {button.icon} 
+                                        text = {button.text}
+                                        event = {event}
+                                        setStatus = {setStatus}
+                                        setIconName = {setIconName}
+                                        setFlashcard = {setFlashcard}
+                                    />
+                                ))}
                             </div>
                         </div>
                     )}
