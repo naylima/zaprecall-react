@@ -1,65 +1,5 @@
 import React from "react";
-
-function Flashcard (props) {
-
-    const [flashcard, setFlashcard] = React.useState(true);
-    const [isFlipped, setFlipped] = React.useState(true);
-    const [status, setStatus] = React.useState("flashcard");
-    const [iconName, setIconName] = React.useState("play-outline");    
-
-    return (
-        <>
-            {flashcard ? (
-                <div className={status}>
-                    <p>Pergunta {props.i}</p>
-                    <ion-icon name={iconName} onClick={() => {
-                        setFlashcard(!flashcard)}}>
-                    </ion-icon>
-                </div>
-                ) : (
-                <>  
-                    {isFlipped ? (
-                        <div className="flashcard-question">
-                            <p>{props.question}</p>
-                            <img src="./assets/setinha.png" alt="" onClick={() => {
-                                setFlipped(!isFlipped)}} />
-                        </div>
-                        ) : (
-                        <div className="flashcard-answer">
-                            <p>{props.answer}</p>
-                            <div>
-                                <button onClick={() => {
-                                        setFlashcard(true)
-                                        setStatus ("wrong")
-                                        setIconName("close-circle")
-                                        props.event("close-circle")
-                                        }}>
-                                            Não lembrei
-                                </button>
-                                <button onClick={() => {
-                                        setFlashcard(true)
-                                        setStatus ("almost")
-                                        setIconName("help-circle")
-                                        props.event("help-circle")
-                                        }}>
-                                            Quase não lembrei
-                                </button>
-                                <button onClick={() => {
-                                        setFlashcard(true)
-                                        setStatus ("right")
-                                        setIconName("checkmark-circle")
-                                        props.event("checkmark-circle")
-                                        }}>
-                                            Zap!
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </>
-            )}               
-        </>
-    );
-}
+import Flashcard from "./Flashcard";
 
 const flashcards = [
     {
@@ -104,12 +44,10 @@ function shuffle() {
 
 function Deck () {  
 
-    const [count, setCount] = React.useState(0);
-    const [iconsName, setIconsName] = React.useState([]);  
+    const [iconsName, setIconsName] = React.useState([]);
 
     function Count (icon) {
-        setCount(count +1);
-        setIconsName([...iconsName, icon]);
+        setIconsName([...iconsName, icon]);           
     }
     
     return (
@@ -132,13 +70,63 @@ function Deck () {
             </main>           
 
              <footer>
-                {count}/{flashcards.length} CONCLUÍDOS
+                {(iconsName.length === flashcards.length) ? (
+                    <>
+                        {(iconsName.includes("close-circle")) ? (
+                            <>
+                                <div className="result">
+                                    <div>
+                                        <img src="./assets/sad.png" alt="" /> 
+                                        <p>Poxa!</p>
+                                    </div> 
+                                    Ainda faltam alguns... Mas não desanime!
+                                </div>
+                                <div>
+                                    {iconsName.length}/{flashcards.length} CONCLUÍDOS
+                                </div>
 
-                <div>
-                    {iconsName.map((iconName, index) =>
-                        <ion-icon key = {index} name={iconName}></ion-icon>
-                    )}
-                </div>
+                                <div>
+                                    {iconsName.map((iconName, index) =>
+                                        <ion-icon key = {index} name={iconName}></ion-icon>
+                                    )}
+                                </div>
+                            </>
+                        ) : ( 
+                            <>
+                                <div className="result">
+                                    <div>
+                                        <img src="./assets/party.png" alt="" /> 
+                                        <p>Parabéns</p>
+                                    </div> 
+                                    Você não esqueceu de nenhum flashcard!
+                                </div>
+                                <div>
+                                    {iconsName.length}/{flashcards.length} CONCLUÍDOS
+                                </div>
+
+                                <div>
+                                    {iconsName.map((iconName, index) =>
+                                        <ion-icon key = {index} name={iconName}></ion-icon>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </>
+
+                ) : (
+                    <>
+                        <div>
+                            {iconsName.length}/{flashcards.length} CONCLUÍDOS
+                        </div>
+
+                        <div>
+                            {iconsName.map((iconName, index) =>
+                                <ion-icon key = {index} name={iconName}></ion-icon>
+                            )}
+                        </div>
+                    </>
+                )}
+                
             </footer>
 
         </div>
