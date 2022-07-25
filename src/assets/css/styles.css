@@ -82,6 +82,7 @@
 
     main {
         margin-bottom: 125px;
+        margin-bottom: 25vh;
     }
 
     .flashcard, .wrong, .right, .almost {        
@@ -311,6 +312,7 @@ header img {
 }
 
 main {
+    margin-bottom: 125px;
     margin-bottom: 25vh;
 }
 
