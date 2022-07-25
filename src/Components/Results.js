@@ -1,15 +1,17 @@
-function Results ({iconsName, flashcards}) {
+import sad from "../assets/img/sad.png"
+import party from "../assets/img/party.png"
 
+function Results ({iconsArray, flashcards, setIconsArray, deck, setDeck}) {
   
     return (
         <>
-        {(iconsName.length === flashcards.length) ? (
+        {(iconsArray.length === deck.length) ? (
             <>
-                {(iconsName.includes("close-circle")) ? (
+                {(iconsArray.includes("close-circle")) ? (
                 
                         <div className="result">
                             <div>
-                                <img src="./assets/sad.png" alt="" /> 
+                                <img src={sad} alt="" /> 
                                 <p>Poxa!</p>
                             </div> 
                             Ainda faltam alguns... Mas não desanime!
@@ -19,7 +21,7 @@ function Results ({iconsName, flashcards}) {
                     
                         <div className="result">
                             <div>
-                                <img src="./assets/party.png" alt="" /> 
+                                <img src={party} alt="" /> 
                                 <p>Parabéns</p>
                             </div> 
                             Você não esqueceu de nenhum flashcard!
@@ -27,25 +29,24 @@ function Results ({iconsName, flashcards}) {
                 
                 )}
                 <div>
-                    {iconsName.length}/{flashcards.length} CONCLUÍDOS
+                    {iconsArray.length}/{deck.length} CONCLUÍDOS
                 </div>
 
                 <div>
-                    {iconsName.map((iconName, index) =>
+                    {iconsArray.map((iconName, index) =>
                         <ion-icon key = {index} name={iconName}></ion-icon>
                     )}
                 </div>
-                <button class="reload">REINICIAR RECALL</button>
             </>
 
         ) : (
             <>
                 <div>
-                    {iconsName.length}/{flashcards.length} CONCLUÍDOS
+                    {iconsArray.length}/{deck.length} CONCLUÍDOS
                 </div>
 
                 <div>
-                    {iconsName.map((iconName, index) =>
+                    {iconsArray.map((iconName, index) =>
                         <ion-icon key = {index} name={iconName}></ion-icon>
                     )}
                 </div>

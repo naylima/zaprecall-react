@@ -1,4 +1,5 @@
 import React from "react";
+import setinha from "../assets/img/setinha.png"
 
 import Button from "./Buttons";
 
@@ -8,20 +9,20 @@ const buttons = [
     {status: "right", icon: "checkmark-circle", text: "Zap!"}
 ]
 
-function Flashcard ({i, question, answer, event}) {
+function Flashcard ({i, question, answer, event, flashcard}) {
 
-    const [flashcard, setFlashcard] = React.useState(true);
+    const [isTapped, setIsTapped] = React.useState(true);
     const [isFlipped, setFlipped] = React.useState(true);
-    const [status, setStatus] = React.useState("flashcard");
+    const [status, setStatus] = React.useState(flashcard.status);
     const [iconName, setIconName] = React.useState("play-outline"); 
-
+    
     return (
         <>
-            {flashcard ? (
+            {isTapped ? (
                 <div className={status}>
                     <p>Pergunta {i}</p>
                     <ion-icon name={iconName} onClick={() => {
-                        setFlashcard(!flashcard)}}>
+                        setIsTapped(!isTapped)}}>
                     </ion-icon>
                 </div>
                 ) : (
@@ -29,7 +30,7 @@ function Flashcard ({i, question, answer, event}) {
                     {isFlipped ? (
                         <div className="flashcard-question">
                             <p>{question}</p>
-                            <img src="./assets/setinha.png" alt="" onClick={() => {
+                            <img src={setinha} alt="" onClick={() => {
                                 setFlipped(!isFlipped)}} />
                         </div>
                         ) : (
@@ -45,7 +46,8 @@ function Flashcard ({i, question, answer, event}) {
                                         event = {event}
                                         setStatus = {setStatus}
                                         setIconName = {setIconName}
-                                        setFlashcard = {setFlashcard}
+                                        setIsTapped = {setIsTapped}
+                                        flashcard = {flashcard}
                                     />
                                 ))}
                             </div>

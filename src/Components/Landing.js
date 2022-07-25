@@ -1,12 +1,13 @@
 import React from "react";
+import logo from "../assets/img/logo.png"
 
 function Landing () {
 
     return (
         <div>
-            <img src="./assets/logo.png" alt="" />
+            <img src={logo} alt="" />
             <h1>ZapRecall</h1>
-        </div>
+        </div>           
     );
 }
 

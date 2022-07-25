@@ -1,8 +1,10 @@
-function Button ({status, icon, text, event, setFlashcard, setStatus, setIconName}) {
+
+function Button ({status, icon, text, event, setIsTapped, setStatus, setIconName, flashcard}) {
     return (
         <button onClick={() => {
-            setFlashcard(true)
-            setStatus (status)
+            flashcard.status = status
+            setIsTapped(true)
+            setStatus (flashcard.status)
             setIconName(icon)
             event(icon)
             }}>
